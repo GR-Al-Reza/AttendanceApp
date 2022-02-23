@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp">
+
+    <RelativeLayout
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/student_roll_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/student_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="56dp"
+            android:text="Al reza"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_marginRight="16dp"
+            android:id="@+id/student_status_id"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="p"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

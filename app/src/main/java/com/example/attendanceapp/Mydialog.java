@@ -1,6 +1,7 @@
 package com.example.attendanceapp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 public class Mydialog extends DialogFragment {
 
     public static final String CLASS_ADD_DIALOG="addclass";
+    public static final String STUDENT_ADD_DIALOG="addstudent";
     private OnClickLintener listener;
     public interface OnClickLintener
     {
@@ -30,9 +32,47 @@ public class Mydialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog=null;
-        if(getTag().equals(CLASS_ADD_DIALOG)) dialog=getAddClassDialog();
+        if(getTag().equals(CLASS_ADD_DIALOG))
+        { dialog=getAddClassDialog();}
+        if(getTag().equals(STUDENT_ADD_DIALOG))
+        {dialog=getAddStudentDialog();}
 
         return dialog;
+    }
+
+    private Dialog getAddStudentDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        View view= LayoutInflater.from(getActivity()).inflate(R.layout.dialog_layout,null);
+        builder.setView(view);
+
+        TextView title=view.findViewById(R.id.title_dialog_id);
+        title.setText("Add new student");
+
+        EditText student_roll=view.findViewById(R.id.edt01_id);
+        EditText student_name=view.findViewById(R.id.edt02_id);
+
+        student_roll.setHint("student roll");
+        student_name.setHint("student name");
+
+        Button cancel=view.findViewById(R.id.cancle_btn);
+        Button add=view.findViewById(R.id.add_btn);
+
+        cancel.setOnClickListener(v -> dismiss());
+
+        add.setOnClickListener(v -> {
+
+                    String roll=student_roll.getText().toString();
+                    String name=student_name.getText().toString();
+                    student_roll.setText(String.valueOf(Integer.parseInt(roll)+1));
+                    student_name.setText("");
+                    listener.onClick(roll,name);
+
+
+                }
+        );
+
+        return builder.create();
+
     }
 
     private Dialog getAddClassDialog() {
