@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class StudentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String Class_name,Course_name;
-    private int positon;
+    private int position;
     private RecyclerView recyclerView;
     private StudentAdapter studentAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -32,7 +32,7 @@ public class StudentActivity extends AppCompatActivity {
         Intent intent=getIntent();
         Class_name= intent.getStringExtra("classname");
         Course_name=intent.getStringExtra("coursename");
-        positon=intent.getIntExtra("position",-1);
+        position=intent.getIntExtra("position",-1);
 
         setToolbar();
 
@@ -42,11 +42,29 @@ public class StudentActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         studentAdapter=new StudentAdapter(this,studentItems);
         recyclerView.setAdapter(studentAdapter);
+        
+        studentAdapter.setOnItemClicklistener(position -> changeStatus(position));
 
 
 
 
     }
+
+    private void changeStatus(int position) {
+
+        String status=studentItems.get(position).getStatus();
+        if(status.equals("P"))
+        {
+            status="A";
+        }
+        else
+        {
+            status="P";
+        }
+        studentItems.get(position).setStatus(status);
+        studentAdapter.notifyItemChanged(position);
+    }
+
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar_id);
         TextView title = toolbar.findViewById(R.id.title_toolbar_id);
