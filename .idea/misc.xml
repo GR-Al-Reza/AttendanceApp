@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2128205128205128" />
+        <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/drawable/rounded_button_color.xml" value="0.1685" />
         <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/activity_student.xml" value="0.2" />
-        <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/classitem.xml" value="0.2" />
+        <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/classitem.xml" value="0.33" />
         <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/dialog_layout.xml" value="0.2" />
         <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/studentitem.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/HP/Desktop/all layouts design/AttendanceApp/app/src/main/res/layout/toolbar.xml" value="0.2" />
