@@ -1,5 +1,6 @@
 package com.example.attendanceapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -126,4 +128,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case 0:
+                showUpdateDialog(item.getGroupId());
+                break;
+            case 1:
+                deleteClass(item.getGroupId());
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void showUpdateDialog(int position) {
+        Mydialog dialog=new Mydialog();
+       dialog.show(getSupportFragmentManager(),Mydialog.CLASS_UPDATE_DIALOG);
+       dialog.setListener((classname,subjectname)->updatcClass(position,classname,subjectname));
+
+    }
+
+    private void updatcClass(int position, String classname, String subjectname) {
+        databhelper.updateClass(classItems.get(position).getC_id(),classname,subjectname);
+        classItems.get(position).setClass_name(classname);
+        classItems.get(position).setClass_course(subjectname);
+        customAdapter.notifyItemChanged(position);
+
+    }
+
+    private void deleteClass(int position) {
+
+        databhelper.deleteClass(classItems.get(position).getC_id());
+        classItems.remove(position);
+        customAdapter.notifyItemRemoved(position);
+    }
+
 }

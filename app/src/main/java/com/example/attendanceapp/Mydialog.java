@@ -19,6 +19,7 @@ public class Mydialog extends DialogFragment {
 
     public static final String CLASS_ADD_DIALOG="addclass";
     public static final String STUDENT_ADD_DIALOG="addstudent";
+    public static final String CLASS_UPDATE_DIALOG="updateclass";
     private OnClickLintener listener;
     public interface OnClickLintener
     {
@@ -37,9 +38,46 @@ public class Mydialog extends DialogFragment {
         { dialog=getAddClassDialog();}
         if(getTag().equals(STUDENT_ADD_DIALOG))
         {dialog=getAddStudentDialog();}
+        if(getTag().equals(CLASS_UPDATE_DIALOG))
+        {dialog=getClassupdateDialog();}
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         return dialog;
+    }
+
+    private Dialog getClassupdateDialog() {
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        View view= LayoutInflater.from(getActivity()).inflate(R.layout.dialog_layout,null);
+        builder.setView(view);
+
+        TextView title=view.findViewById(R.id.title_dialog_id);
+        title.setText("Update class");
+
+        EditText class_edt=view.findViewById(R.id.edt01_id);
+        EditText sub_edt=view.findViewById(R.id.edt02_id);
+        class_edt.setHint("Class name");
+        sub_edt.setHint("Course name");
+
+        Button cancel=view.findViewById(R.id.cancle_btn);
+        Button add=view.findViewById(R.id.add_btn);
+        add.setText("update");
+
+        cancel.setOnClickListener(v -> dismiss());
+
+        add.setOnClickListener(v -> {
+
+                    String class_name=class_edt.getText().toString();
+                    String sub_name=sub_edt.getText().toString();
+
+                    listener.onClick(class_name,sub_name);
+
+                    dismiss();
+                }
+        );
+
+        return builder.create();
     }
 
     private Dialog getAddStudentDialog() {
