@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     Toolbar toolbar;
 
+ 
+    Databhelper databhelper;
+
+
 
     ArrayList<ClassItem> classItems = new ArrayList<>();
 
@@ -34,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       // dbHelper=new DbHelper(this);
+        databhelper=new Databhelper(this);
 
         floatingbutton = findViewById(R.id.floating_button);
         floatingbutton.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+       loadData();
+
         recyclerView = findViewById(R.id.recyclerview_id);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -55,6 +66,21 @@ public class MainActivity extends AppCompatActivity {
 
         setToolbar();
 
+    }
+
+    //database work load data
+    private void loadData()
+    {
+
+        Cursor cursor=databhelper.getClassTable();
+        classItems.clear();
+        while(cursor.moveToNext())
+        {
+            int id=cursor.getInt(cursor.getColumnIndex(databhelper.C_ID));
+            String class_name=cursor.getString(cursor.getColumnIndex(databhelper.CLASS_NAME_KEY));
+            String subject_name=cursor.getString(cursor.getColumnIndex(databhelper.SUBJECT_NAME_KEY));
+            classItems.add(new ClassItem(id,class_name,subject_name));
+        }
     }
 
     private void setToolbar() {
@@ -84,15 +110,20 @@ public class MainActivity extends AppCompatActivity {
 
         Mydialog dialog = new Mydialog();
         dialog.show(getSupportFragmentManager(), Mydialog.CLASS_ADD_DIALOG);
-        dialog.setListener((class_name, subject_name) -> addclass(class_name, subject_name));
+        dialog.setListener((class_name, subject_name) -> addClass(class_name, subject_name));
 
 
     }
 
-    private void addclass(String class_name, String subject_name) {
+    private void addClass(String class_name, String subject_name) {
+       long cid= databhelper.addClass(class_name,subject_name);
+        ClassItem classItem=new ClassItem(cid,class_name,subject_name);
 
-        classItems.add(new ClassItem(class_name, subject_name));
+        classItems.add(classItem);
+        //classItems.add(new ClassItem(class_name,subject_name));
 
         customAdapter.notifyDataSetChanged();
+
+
     }
 }

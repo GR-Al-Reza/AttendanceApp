@@ -1,7 +1,23 @@
 package com.example.attendanceapp;
 
 public class ClassItem {
-   private String class_name;
+    private long c_id;
+
+    public ClassItem(long c_id, String class_name, String class_course) {
+        this.c_id = c_id;
+        this.class_name = class_name;
+        this.class_course = class_course;
+    }
+
+    public long getC_id() {
+        return c_id;
+    }
+
+    public void setC_id(long c_id) {
+        this.c_id = c_id;
+    }
+
+    private String class_name;
     private String class_course;
 
     public ClassItem(String class_name, String class_course) {
