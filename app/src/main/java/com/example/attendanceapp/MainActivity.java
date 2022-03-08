@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("classname", classItems.get(position).getClass_name());
         intent.putExtra("coursename", classItems.get(position).getClass_course());
         intent.putExtra("position", position);
+        intent.putExtra("cid", classItems.get(position).getC_id());
         startActivity(intent);
     }
 
@@ -163,5 +164,6 @@ public class MainActivity extends AppCompatActivity {
         classItems.remove(position);
         customAdapter.notifyItemRemoved(position);
     }
+
 
 }

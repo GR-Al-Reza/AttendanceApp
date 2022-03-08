@@ -1,21 +1,23 @@
 package com.example.attendanceapp;
 
 public class StudentItem {
-    String roll;
+    private long sid;
+    int roll;
     String name;
     String status;
 
-    public StudentItem(String roll, String name) {
+    public StudentItem(long sid,int roll, String name) {
         this.roll = roll;
         this.name = name;
+        this.sid=sid;
         status="";
     }
 
-    public String getRoll() {
+    public int getRoll() {
         return roll;
     }
 
-    public void setRoll(String roll) {
+    public void setRoll(int roll) {
         this.roll = roll;
     }
 
@@ -33,5 +35,13 @@ public class StudentItem {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public long getSid() {
+        return sid;
+    }
+
+    public void setSid(long sid) {
+        this.sid = sid;
     }
 }

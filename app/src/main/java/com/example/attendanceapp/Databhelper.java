@@ -123,6 +123,33 @@ public class Databhelper extends SQLiteOpenHelper{
         return database.update(CLASS_TABLE_NAME,values,C_ID +"=?",new String[]{String.valueOf(cid)});
     }
 
+    long addStudent(long cid,int roll,String name){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(C_ID,cid);
+        values.put(STUDENT_ROLL_KEY,roll);
+        values.put(STUDENT_NAME_KEY,name);
+
+        return database.insert(STUDENT_TABLE_NAME,null,values);
+    }
+    Cursor getStudentTable(long cid){
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        return database.query(STUDENT_TABLE_NAME,null,C_ID +"=?",new String[]{String.valueOf(cid)},null,null,STUDENT_ROLL_KEY);
+    }
+    int deleteStudent(long sid)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.delete(STUDENT_TABLE_NAME, S_ID +"=?",new String[]{String.valueOf(sid)});
+    }
+    long updateStudent(long sid,String name){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(STUDENT_NAME_KEY,name);
+
+        return database.update(STUDENT_TABLE_NAME,values,S_ID +"=?",new String[]{String.valueOf(sid)});
+    }
+
 
 
 }

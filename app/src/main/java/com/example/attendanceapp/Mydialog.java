@@ -20,7 +20,21 @@ public class Mydialog extends DialogFragment {
     public static final String CLASS_ADD_DIALOG="addclass";
     public static final String STUDENT_ADD_DIALOG="addstudent";
     public static final String CLASS_UPDATE_DIALOG="updateclass";
+    public static final String STUDENT_UPDATE_DIALOG ="updatesutdent";
     private OnClickLintener listener;
+    private int roll;
+    private String name;
+
+    public Mydialog(int roll, String name) {
+
+        this.roll = roll;
+        this.name = name;
+    }
+
+    public Mydialog() {
+
+    }
+
     public interface OnClickLintener
     {
         void onClick(String text1,String text2);
@@ -40,10 +54,53 @@ public class Mydialog extends DialogFragment {
         {dialog=getAddStudentDialog();}
         if(getTag().equals(CLASS_UPDATE_DIALOG))
         {dialog=getClassupdateDialog();}
+        if(getTag().equals(STUDENT_UPDATE_DIALOG))
+        {dialog=getUpdateStudentDialog();}
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         return dialog;
+    }
+
+    private Dialog getUpdateStudentDialog()
+    {
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        View view= LayoutInflater.from(getActivity()).inflate(R.layout.dialog_layout,null);
+        builder.setView(view);
+
+        TextView title=view.findViewById(R.id.title_dialog_id);
+        title.setText("update student");
+
+        EditText student_roll=view.findViewById(R.id.edt01_id);
+        EditText student_name=view.findViewById(R.id.edt02_id);
+
+        student_roll.setHint("student roll");
+        student_name.setHint("student name");
+
+        Button cancel=view.findViewById(R.id.cancle_btn);
+        Button add=view.findViewById(R.id.add_btn);
+        add.setText("update");
+
+        student_roll.setText(roll+"");
+        student_name.setText(name);
+        student_roll.setEnabled(false);
+
+        cancel.setOnClickListener(v -> dismiss());
+
+        add.setOnClickListener(v -> {
+
+                    String roll=student_roll.getText().toString();
+                    String name=student_name.getText().toString();
+
+                    listener.onClick(roll,name);
+                    dismiss();
+
+
+                }
+        );
+
+        return builder.create();
+
     }
 
     private Dialog getClassupdateDialog() {
