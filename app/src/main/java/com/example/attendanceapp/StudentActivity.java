@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class StudentActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -27,12 +28,15 @@ public class StudentActivity extends AppCompatActivity {
     private ArrayList<StudentItem> studentItems=new ArrayList<>();
     private Databhelper databhelper;
     private int cid;
+    private MyCalender calender;
+    private TextView subtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
+        calender=new MyCalender();
         databhelper=new Databhelper(this);
 
         Intent intent=getIntent();
@@ -40,6 +44,7 @@ public class StudentActivity extends AppCompatActivity {
         Course_name=intent.getStringExtra("coursename");
         position=intent.getIntExtra("position",-1);
         cid=intent.getIntExtra("cid",-1);
+
 
 
         setToolbar();
@@ -91,12 +96,12 @@ public class StudentActivity extends AppCompatActivity {
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar_id);
         TextView title = toolbar.findViewById(R.id.title_toolbar_id);
-        TextView subtitle = toolbar.findViewById(R.id.subtitle_toolbar_id);
+        subtitle=toolbar.findViewById(R.id.subtitle_toolbar_id);
         ImageButton backbutton = toolbar.findViewById(R.id.icon_back_id);
         ImageButton savebutton = toolbar.findViewById(R.id.save_button_id);
 
         title.setText(Class_name);
-        subtitle.setText(Course_name);
+        subtitle.setText(Course_name+" | "+calender.getdate());
         backbutton.setVisibility(View.VISIBLE);
         savebutton.setVisibility(View.VISIBLE);
 
@@ -112,7 +117,27 @@ public class StudentActivity extends AppCompatActivity {
           showAddStudentDialog();
 
         }
+        if(menuItem.getItemId()==R.id.show_calendar)
+        {
+            showCalendar();
+
+        }
         return true;
+    }
+
+    private void showCalendar() {
+
+
+        calender.show(getSupportFragmentManager(),"");
+
+        calender.setOncalendarOkclickListener(this::onCalendarOkcliced);
+    }
+
+    private void onCalendarOkcliced(int year, int month, int day) {
+
+calender.setdate(year,month,day);
+subtitle.setText(Course_name+" | "+calender.getdate());
+
     }
 
     private void showAddStudentDialog() {
